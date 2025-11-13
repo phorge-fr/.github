@@ -22,7 +22,7 @@ Our mission is simple:
 
 - Modern cloud foundation — Kubernetes, Incus, automation, observability
 
-- Stay minimalist - From Power consumption to configuration, Let's keep thing simple !
+- Stay minimalist - From Power consumption to configuration, Let's keep things simple !
 
 This is an early-stage project, but the foundation is in place. The ambition is long-term.
 
