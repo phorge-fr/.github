@@ -33,8 +33,12 @@ This is an early-stage project, but the foundation is in place. The ambition is 
 | **[FrontPlane](https://github.com/phorge-fr/FrontPlane)**                           | Main Kubernetes cluster hosting every services required for the infrastructure to run    |
 | **[Ansible](https://github.com/phorge-fr/Ansible)**                                 | Infrastructure automation and base system provisioning                                 |
 | **[Network](https://github.com/phorge-fr/Network)**                                 | Network design, configuration and tooling for routing, isolation, and service exposure |
-| **[prometheus_exporter_gpu](https://github.com/phorge-fr/prometheus_exporter_gpu)** | Custom Prometheus exporter for GPU metrics across NVIDIA & AMD devices                 |
 
+## Other repositories
+
+This Github organization hosts the main repository used to deploy the necessary components to run Phorge.
+
+All other repositories used to run, build, or host apps can be found on [Phorge's Gitea](https://git.phorge.fr)
 
 ## Contact
 
