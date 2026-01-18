@@ -30,10 +30,10 @@ This is an early-stage project, but the foundation is in place. The ambition is 
 
 | Project                                                                             | Description                                                                            |
 | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| **[FrontPlane](https://github.com/phorge-fr/FrontPlane)**                           | Main Kubernetes cluster hosting every services required for the infrastructure to run    |
+| **[FrontPlane](https://github.com/phorge-fr/FrontPlane)**                           | Main Kubernetes cluster hosting every services required for the infrastructure to run  |
 | **[Ansible](https://github.com/phorge-fr/Ansible)**                                 | Infrastructure automation and base system provisioning                                 |
 | **[Network](https://github.com/phorge-fr/Network)**                                 | Network design, configuration and tooling for routing, isolation, and service exposure |
-
+| **[Gitea-Phorge-Theme](https://github.com/phorge-fr/gitea-phorge-theme)**           | Simple Gitea theme to match Phorge's design and colors                                 |
 ## Other repositories
 
 This Github organization hosts the main repository used to deploy the necessary components to run Phorge.
