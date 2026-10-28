@@ -59,7 +59,7 @@ project's built-in workflows when a pull request is opened or merged and an issu
 
 GitHub has no native time tracking, so Phorge uses a comment convention.
 
-```
+```text
 /time 1h30 debugged the Cilium policy for the exporter
 /time 45m reviewed the compositions
 /time 2h @2026-10-27 pairing on the API (for work done on another day)
