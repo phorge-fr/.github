@@ -3,7 +3,6 @@ name: docs
 
 on:
   pull_request:
-    paths: ["docs/**", "*.md", "docs-lint/**", "scripts/check_docs.py", "templates/**", ".github/workflows/docs*.yml"]
   schedule:
     - cron: "41 5 * * 1"      # Monday: also check the links to the web
   workflow_dispatch:
