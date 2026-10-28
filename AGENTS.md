@@ -43,7 +43,7 @@ Read [GOVERNANCE.md](GOVERNANCE.md) for the full rules. In short:
 2. An issue has exactly one **type** (Epic, Feature, Task, Bug, Chore, Security, Docs), one `area/*` label, a **priority**
    (P0 to P3) and an **estimate in hours** (project fields), an assignee, a milestone and a project.
 3. Work happens on a **branch** (`feat/...`, `fix/...`, `docs/...`, `chore/...`) and reaches `main` through a **pull request**
-   that references its issue (`Closes #N`). Nobody pushes to `main`. Renovate, Dependabot and release-please pull requests are exempt
+   that closes its issue (`Closes #N`): a pull request always closes an issue, and an issue is closed only by a pull request. Nobody pushes to `main`. Renovate, Dependabot and release-please pull requests are exempt
    from the issue requirement.
 4. **Time** is logged in a comment, `/time 1h30 what was done`, on the issue or the pull request.
 5. Issues, pull requests, commits and code comments are written in **English**.
