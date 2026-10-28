@@ -27,6 +27,10 @@ jobs:
       PR: ${{ github.event.pull_request.number }}
       HEAD_SHA: ${{ github.event.pull_request.head.sha }}
     steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          repository: phorge-fr/.github
+          path: .org
       - name: Verify metadata
         run: |
           set -euo pipefail
@@ -61,3 +65,17 @@ jobs:
             err "Request a reviewer or add a CODEOWNERS file."
           fi
           exit "$fail"
+
+      # Not a check: a reminder, printed in the log and the job summary. An issue that this pull request finishes but does not name
+      # stays open (the pull request closes only what it names), so list the open sub-issues next to the ones it names.
+      - name: Open sibling sub-issues
+        continue-on-error: true
+        run: |
+          body=$(gh pr view "$PR" --repo "$REPO" --json body --jq .body)
+          keys=$(printf '%s' "$body" | grep -Eio '(clos(e|es|ed)|fix(es|ed)?|resolv(e|es|ed)|refs?|part of)[: ]+([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)?#[0-9]+' \
+            | sed -E 's/^[A-Za-z ]+[: ]+//' | awk -v r="$REPO" '{ if ($0 ~ /^#/) print r $0; else print $0 }' | sort -u | tr '\n' ' ')
+          [ -n "$keys" ] || exit 0
+          out=$(python3 -I .org/scripts/issue_hygiene.py siblings $keys)
+          echo "$out"
+          printf '### Open sibling sub-issues\n\n%s\n' "$out" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$out" != "No open sibling sub-issues." ]; then echo "::notice title=Does this pull request finish a sibling sub-issue?::$out"; fi

@@ -93,6 +93,16 @@ personal-data handling.
 Every repository of the organization is licensed under the Apache License 2.0 (a `LICENSE` file at its root), and lists third-party licenses in `THIRD_PARTY_NOTICES.md`. A new dependency
 is checked for compatibility before it is added.
 
+## Before you open a pull request
+
+A pull request closes only the issues it names. Before opening one, list the open sub-issues next to the ones it concerns and decide, for each, whether this change finishes it:
+
+```bash
+python3 scripts/issue_hygiene.py siblings <owner>/<repo>#<number>
+```
+
+Write `Closes <owner>/<repo>#N` for every issue it finishes (`Part of` for the rest). The `pr-governance` check prints the same list as a reminder, and the `hygiene` workflow reports, every Monday, open issues that look finished.
+
 ## Documentation
 
 Every repository documents itself by the same standard: five page types (tutorial, how-to, reference, explanation, decision), a header on every page, and shared checks in CI. See [the documentation standard](docs/reference/documentation-standard.md) and [how to write and check a page](docs/how-to/write-and-check-a-page.md).

@@ -1,0 +1,21 @@
+# Weekly report of open issues that probably need a decision (see scripts/issue_hygiene.py). Nothing is closed automatically.
+name: hygiene
+
+on:
+  schedule:
+    - cron: "30 6 * * 1"      # Monday, after the time report
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I scripts/issue_hygiene.py report phorge-fr --post phorge-fr/.github#36
