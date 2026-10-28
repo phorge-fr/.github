@@ -1,0 +1,10 @@
+# Shared markdownlint configuration. Long lines are a writing-style concern (Vale), not a formatting one.
+default: true
+MD013: false
+MD024:
+  siblings_only: true
+MD033:
+  allowed_elements: [details, summary, br]
+MD041: false   # the first line is the front matter, then the title
+MD046:
+  style: fenced

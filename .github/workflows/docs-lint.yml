@@ -1,0 +1,78 @@
+# Reusable check: the documentation of a repository follows docs/reference/documentation-standard.md.
+# Call it from a repository with:
+#
+#   on:
+#     pull_request:
+#       paths: ["docs/**", "*.md"]
+#   permissions: { contents: read }
+#   jobs:
+#     docs:
+#       uses: phorge-fr/.github/.github/workflows/docs-lint.yml@main
+#
+# `external-links: true` also checks the links to the web (use it on a schedule, not on pull requests).
+name: docs-lint
+
+on:
+  workflow_call:
+    inputs:
+      external-links:
+        type: boolean
+        default: false
+      org-ref:
+        description: Ref of phorge-fr/.github that holds the scripts and configurations
+        type: string
+        default: main
+
+permissions:
+  contents: read
+
+env:
+  MARKDOWNLINT_CLI2: 0.23.3
+  VALE: 3.24.0
+  LYCHEE: 0.24.2
+
+jobs:
+  docs:
+    name: docs-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          repository: phorge-fr/.github
+          ref: ${{ inputs.org-ref }}
+          path: .org
+
+      - name: Header and layout
+        run: python3 -I .org/scripts/check_docs.py .
+
+      - name: Markdown
+        run: npx --yes "markdownlint-cli2@${MARKDOWNLINT_CLI2}" --config .org/docs-lint/markdownlint.yaml "docs/**/*.md" "*.md" "!CLAUDE.md"
+
+      - name: Install lychee and Vale
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          base="https://github.com/lycheeverse/lychee/releases/download/lychee-v${LYCHEE}"
+          curl -fsSLO "$base/lychee-x86_64-unknown-linux-gnu.tar.gz"
+          curl -fsSLO "$base/lychee-x86_64-unknown-linux-gnu.tar.gz.sha256"
+          sha256sum -c lychee-x86_64-unknown-linux-gnu.tar.gz.sha256
+          tar -xzf lychee-x86_64-unknown-linux-gnu.tar.gz
+          base="https://github.com/errata-ai/vale/releases/download/v${VALE}"
+          curl -fsSLO "$base/vale_${VALE}_Linux_64-bit.tar.gz"
+          curl -fsSLO "$base/vale_${VALE}_checksums.txt"
+          grep "vale_${VALE}_Linux_64-bit.tar.gz" "vale_${VALE}_checksums.txt" | sha256sum -c
+          tar -xzf "vale_${VALE}_Linux_64-bit.tar.gz" vale
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Links
+        run: |
+          flags="--include-fragments --no-progress"
+          if [ "${{ inputs.external-links }}" != "true" ]; then flags="$flags --offline"; fi
+          # shellcheck disable=SC2086
+          lychee $flags --config .org/docs-lint/lychee.toml docs README.md
+
+      - name: Prose
+        run: |
+          vale --config .org/docs-lint/vale.ini sync
+          vale --config .org/docs-lint/vale.ini docs
