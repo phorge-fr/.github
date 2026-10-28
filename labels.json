@@ -25,6 +25,16 @@
     "description": "Storage node, NFS, S3, backups"
   },
   {
+    "name": "area/platform",
+    "color": "1d76db",
+    "description": "Cross-cluster Kubernetes platform: k0s, Flux, Cilium, etcd, apiserver"
+  },
+  {
+    "name": "area/compute",
+    "color": "0e8a16",
+    "description": "Incus, Ceph, OVN and HPC/GPU nodes"
+  },
+  {
     "name": "area/api",
     "color": "5319e7",
     "description": "Phorge API and console"

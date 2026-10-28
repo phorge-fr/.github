@@ -20,12 +20,12 @@ Every unit of work is an issue, in the repository it changes. An open issue carr
 | Property | Where | Values |
 | --- | --- | --- |
 | Type (the "tag", exactly one) | Issue type | Epic, Feature, Task, Bug, Chore, Security, Docs |
-| Area (exactly one) | `area/*` label | `control`, `core`, `svc`, `network`, `storage`, `api`, `crossplane`, `observability`, `security`, `docs`, `ci`, `brand`, `legal` |
+| Area (exactly one) | `area/*` label | `control`, `core`, `svc`, `platform`, `network`, `storage`, `compute`, `api`, `crossplane`, `observability`, `security`, `docs`, `ci`, `brand`, `legal` |
 | Priority | Project field | P0 (now, blocks everything), P1 (this quarter), P2 (planned), P3 (nice to have) |
 | Estimate | Project field `Estimate (h)` | Hours of focused work, rounded up |
 | Time spent | Project field `Spent (h)` | Filled from `/time` comments |
 | Assignee | Issue | One person |
-| Milestone | Issue | `2026-Q4`, `2027-Q1`, `2027-Q2` or `Backlog` |
+| Milestone | Issue | `2026-Q4`, `2027-Q1`, `2027-Q2` or `Backlog` (closed past quarters, `2025-Q4` and `2026-Q3`, hold finished history) |
 | Project | Issue | At least one of the organization projects |
 
 Titles are in English. In **Hangar** they read `<cluster>/<subject>: Description` (`core/authentik: ...`, `all/security: ...` for

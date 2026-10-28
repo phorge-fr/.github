@@ -30,7 +30,7 @@ for repo in "${repos[@]}"; do
   jq -c '.[]' "$here/milestones.json" | while read -r m; do
     title=$(jq -r .title <<<"$m")
     if grep -Fxq -- "$title" <<<"$titles"; then continue; fi
-    args=(-f title="$title" -f description="$(jq -r .description <<<"$m")")
+    args=(-f title="$title" -f description="$(jq -r .description <<<"$m")" -f state="$(jq -r '.state // "open"' <<<"$m")")
     due=$(jq -r '.due_on // empty' <<<"$m")
     if [[ -n $due ]]; then args+=(-f due_on="$due"); fi
     run gh api -X POST "repos/$repo/milestones" "${args[@]}"
