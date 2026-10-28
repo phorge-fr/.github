@@ -28,7 +28,10 @@ def gh(*args, paginate=False, input_=None):
     cmd = ["gh", "api", *args]
     if paginate:
         cmd.insert(2, "--paginate")
-    out = subprocess.run(cmd, check=True, capture_output=True, text=True, input=input_).stdout
+    proc = subprocess.run(cmd, capture_output=True, text=True, input=input_)
+    if proc.returncode:
+        sys.exit(f"gh api failed: {proc.stderr.strip() or proc.stdout.strip()}")
+    out = proc.stdout
     if paginate:  # --paginate concatenates JSON arrays: "[..][..]"
         dec, i, items = json.JSONDecoder(), 0, []
         while i < len(out):
@@ -88,10 +91,8 @@ mutation($p: ID!, $i: ID!, $f: ID!, $v: Float!) { updateProjectV2ItemFieldValue(
 
 
 def graphql(query, **variables):
-    args = ["graphql", "-f", f"query={query}"]
-    for k, v in variables.items():
-        args += ["-F" if isinstance(v, float) else "-f", f"{k}={v}"]
-    return gh(*args)["data"]
+    # variables go in a JSON body: `gh api -F` only types ints and booleans, so a Float would be sent as a string
+    return gh("graphql", "--input", "-", input_=json.dumps({"query": query, "variables": variables}))["data"]
 
 
 def node_id(repo, number):
