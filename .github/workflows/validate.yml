@@ -1,0 +1,23 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: JSON files
+        run: for f in labels.json milestones.json; do jq empty "$f"; done
+      - name: Shell scripts
+        run: shellcheck scripts/*.sh
+      - name: Python
+        run: python3 -I -m py_compile scripts/time_tracking.py
+      - name: Time parser self-test
+        run: python3 -I scripts/time_tracking.py selftest

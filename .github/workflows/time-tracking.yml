@@ -1,0 +1,43 @@
+# Keeps the `Spent (h)` project field in sync with `/time` comments, and posts the weekly report.
+# Needs the secret PROJECTS_TOKEN: a token that can write to the organization's projects and read its repositories
+# (fine-grained PAT or GitHub App token; the default GITHUB_TOKEN cannot write organization projects).
+name: time-tracking
+
+on:
+  schedule:
+    - cron: "17 * * * *"      # hourly: totals to project fields
+    - cron: "5 6 * * 1"       # Monday 06:05 UTC: report for the previous week
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync:
+    if: github.event.schedule != '5 6 * * 1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Sync Spent (h)
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+        run: python3 -I scripts/time_tracking.py sync-all phorge-fr
+
+  report:
+    if: github.event.schedule == '5 6 * * 1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Post the report on the "Time reports" issue
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+        run: |
+          set -euo pipefail
+          until=$(date -u -d 'yesterday' +%F)
+          since=$(date -u -d '7 days ago' +%F)
+          python3 -I scripts/time_tracking.py report phorge-fr --since "$since" --until "$until" --out report.md
+          issue=$(gh issue list --repo phorge-fr/.github --state open --search 'Time reports in:title' --json number,title \
+                  --jq '[.[]|select(.title=="all/time: Time reports")][0].number // empty')
+          [ -n "$issue" ] || { echo "::error::Create the issue titled 'all/time: Time reports' first."; exit 1; }
+          gh issue comment "$issue" --repo phorge-fr/.github --body-file report.md
