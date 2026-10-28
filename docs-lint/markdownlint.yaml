@@ -5,6 +5,7 @@ MD024:
   siblings_only: true
 MD033:
   allowed_elements: [details, summary, br]
+MD060: false   # table pipe spacing: both `|---|` and `| --- |` are readable
 MD041: false   # the first line is the front matter, then the title
 MD046:
   style: fenced
