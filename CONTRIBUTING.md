@@ -26,6 +26,10 @@ By taking part you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 - New dependencies must have a license compatible with the repository's; mention it in the pull request.
 - Documentation is part of the change. Keep it short, accurate and in English.
 
+## Documentation
+
+A change that alters behavior updates its documentation in the same pull request. Pages follow [the documentation standard](docs/reference/documentation-standard.md) and pass the `docs-lint` check.
+
 ## Logging time
 
 Maintainers and regular contributors log time with a comment, `/time 1h30 what was done`. See [GOVERNANCE.md](GOVERNANCE.md#time-tracking).
