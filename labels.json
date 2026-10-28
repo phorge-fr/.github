@@ -1,0 +1,102 @@
+[
+  {
+    "name": "area/control",
+    "color": "1d76db",
+    "description": "control cluster"
+  },
+  {
+    "name": "area/core",
+    "color": "1d76db",
+    "description": "core cluster"
+  },
+  {
+    "name": "area/svc",
+    "color": "1d76db",
+    "description": "svc cluster"
+  },
+  {
+    "name": "area/network",
+    "color": "0e8a16",
+    "description": "Router, VLANs, firewall, DNS"
+  },
+  {
+    "name": "area/storage",
+    "color": "0e8a16",
+    "description": "Storage node, NFS, S3, backups"
+  },
+  {
+    "name": "area/platform",
+    "color": "1d76db",
+    "description": "Cross-cluster Kubernetes platform: k0s, Flux, Cilium, etcd, apiserver"
+  },
+  {
+    "name": "area/compute",
+    "color": "0e8a16",
+    "description": "Incus, Ceph, OVN and HPC/GPU nodes"
+  },
+  {
+    "name": "area/api",
+    "color": "5319e7",
+    "description": "Phorge API and console"
+  },
+  {
+    "name": "area/crossplane",
+    "color": "5319e7",
+    "description": "Crossplane, compositions, providers"
+  },
+  {
+    "name": "area/observability",
+    "color": "fbca04",
+    "description": "Metrics, logs, dashboards, alerts"
+  },
+  {
+    "name": "area/security",
+    "color": "b60205",
+    "description": "Security, hardening, audits"
+  },
+  {
+    "name": "area/docs",
+    "color": "0075ca",
+    "description": "Documentation, wiki, READMEs"
+  },
+  {
+    "name": "area/ci",
+    "color": "bfd4f2",
+    "description": "CI/CD, automation, dependencies"
+  },
+  {
+    "name": "area/brand",
+    "color": "d876e3",
+    "description": "Branding, website, marketing"
+  },
+  {
+    "name": "area/legal",
+    "color": "d93f0b",
+    "description": "Licenses, GDPR, terms"
+  },
+  {
+    "name": "blocked",
+    "color": "000000",
+    "description": "Waiting on something external"
+  },
+  {
+    "name": "needs-decision",
+    "color": "ededed",
+    "description": "Needs a maintainer decision before work starts"
+  },
+  {
+    "name": "good first issue",
+    "color": "7057ff",
+    "description": "Good for newcomers"
+  },
+  {
+    "name": "help wanted",
+    "color": "008672",
+    "description": "Extra attention is needed"
+  },
+  {
+    "name": "dependencies",
+    "color": "0366d6",
+    "description": "Dependency update (Renovate/Dependabot)"
+  }
+]

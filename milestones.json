@@ -1,0 +1,33 @@
+[
+  {
+    "title": "2025-Q4",
+    "due_on": "2025-12-31T23:59:59Z",
+    "description": "Past work, October to December 2025",
+    "state": "closed"
+  },
+  {
+    "title": "2026-Q3",
+    "due_on": "2026-09-30T23:59:59Z",
+    "description": "Past work, July to September 2026",
+    "state": "closed"
+  },
+  {
+    "title": "2026-Q4",
+    "due_on": "2026-12-31T23:59:59Z",
+    "description": "October to December 2026"
+  },
+  {
+    "title": "2027-Q1",
+    "due_on": "2027-03-31T23:59:59Z",
+    "description": "January to March 2027"
+  },
+  {
+    "title": "2027-Q2",
+    "due_on": "2027-06-30T23:59:59Z",
+    "description": "April to June 2027"
+  },
+  {
+    "title": "Backlog",
+    "description": "Unscheduled"
+  }
+]

@@ -1,0 +1,21 @@
+# Applies labels.json and milestones.json to every repository. Manual run, or after a change to those files.
+name: sync-repos
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [labels.json, milestones.json, scripts/sync-repos.sh]
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Apply
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+        run: scripts/sync-repos.sh --apply

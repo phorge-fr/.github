@@ -28,18 +28,29 @@ This is an early-stage project, but the foundation is in place. The ambition is 
 
 # Core Components
 
-| Project                                                                             | Description                                                                            |
-| ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| **[Hangar](https://github.com/phorge-fr/FrontPlane)**                               | All kubernetes manifests & deployments required for the infrastructure to run          |
-| **[Ansible](https://github.com/phorge-fr/Ansible)**                                 | Infrastructure automation and base system provisioning                                 |
-| **[Network](https://github.com/phorge-fr/Network)**                                 | Network design, configuration and tooling for routing, isolation, and service exposure |
-| **[Gitea-Phorge-Theme](https://github.com/phorge-fr/gitea-phorge-theme)**           | Simple Gitea theme to match Phorge's design and colors                                 |
-## Other repositories
+| Project | Description |
+| --- | --- |
+| **[Hangar](https://github.com/phorge-fr/Hangar)** | GitOps (FluxCD) for the three Kubernetes clusters: manifests, Crossplane compositions, docs |
+| **[Network](https://github.com/phorge-fr/Network)** | Router configuration as code (OpenTofu): VLANs, firewall, DNS, edge proxy |
+| **[Ansible](https://github.com/phorge-fr/Ansible)** | Provisioning of everything that is not Kubernetes: storage, HPC/GPU and compute nodes |
+| **[phorge-api](https://github.com/phorge-fr/phorge-api)** | The Phorge API: tenants, images, instances, memberships and API keys |
+| **[Gitea-Phorge-Theme](https://github.com/phorge-fr/gitea-phorge-theme)** | Simple Gitea theme to match Phorge's design and colors |
 
-This Github organization hosts the main repository used to deploy the necessary components to run Phorge.
+The Crossplane providers (`provider-incus`, `provider-openfga`, `provider-authentik`) currently live under
+[@l-nmch](https://github.com/l-nmch) and are planned to move here.
 
-All other repositories used to run, build, or host apps can be found on [Phorge's Forgejo](https://git.phorge.fr)
+# Roadmap and how we work
+
+Everything we do is a public issue in a public [GitHub Project](https://github.com/orgs/phorge-fr/projects):
+the **Roadmap** (epics by quarter), **Platform**, **Cloud API & Providers**, **Security & Compliance** and **Community & Brand**.
+Each issue has a type, a priority, an estimate and the time spent. Read [GOVERNANCE.md](https://github.com/phorge-fr/.github/blob/main/GOVERNANCE.md).
+
+# Contribute
+
+- [Contributing guide](https://github.com/phorge-fr/.github/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/phorge-fr/.github/blob/main/CODE_OF_CONDUCT.md)
+- [Security policy](https://github.com/phorge-fr/.github/blob/main/SECURITY.md): report vulnerabilities privately
+- New here, or an AI agent? Start with [AGENTS.md](https://github.com/phorge-fr/.github/blob/main/AGENTS.md)
 
 ## Contact
 
-Feel free to contact me by email: `contact@phorge.fr`
+Feel free to contact us by email: `contact@phorge.fr`

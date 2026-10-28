@@ -1,0 +1,26 @@
+name: Security work item (scope only)
+description: Track a security audit or hardening task. Never put exploitable details here.
+type: Security
+assignees: [l-nmch]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Describe **scope, method and status** only. Findings go to a private advisory
+        or a git-ignored `reports/` folder (see SECURITY.md) and are published sanitized after the fix.
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+    validations: { required: true }
+  - type: textarea
+    id: method
+    attributes:
+      label: Method and tools
+    validations: { required: false }
+  - type: textarea
+    id: out
+    attributes:
+      label: Expected output
+      description: Where the (private) report goes and what will be published.
+    validations: { required: false }

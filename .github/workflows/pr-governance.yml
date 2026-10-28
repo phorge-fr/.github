@@ -1,0 +1,63 @@
+# Reusable check: a pull request is linked to an issue and carries the project-management metadata.
+# Call it from a repository with:
+#
+#   on:
+#     pull_request:
+#       types: [opened, edited, synchronize, reopened, ready_for_review, labeled, unlabeled, milestoned, demilestoned, assigned, unassigned]
+#   permissions: { contents: read, pull-requests: read }
+#   jobs:
+#     governance:
+#       uses: phorge-fr/.github/.github/workflows/pr-governance.yml@main
+name: pr-governance
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  check:
+    name: pr-governance
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Verify metadata
+        run: |
+          set -euo pipefail
+          pr=$(gh pr view "$PR" --repo "$REPO" --json author,headRefName,body,labels,milestone,assignees,reviewRequests,reviews)
+          author=$(jq -r .author.login <<<"$pr")
+          branch=$(jq -r .headRefName <<<"$pr")
+
+          # Exempt: dependency and release automation. Renovate may run with a personal token, so look at the branch too.
+          case "$author:$branch" in
+            *renovate*|*dependabot*|*:release-please--*|*:renovate/*|*:dependabot/*)
+              echo "Automation pull request, exempt."; exit 0 ;;
+          esac
+
+          fail=0
+          err() { echo "::error::$1"; fail=1; }
+
+          # 1. Issue link: Closes/Fixes/Resolves/Refs/Part of #N or owner/repo#N
+          if ! jq -r .body <<<"$pr" | grep -Eiq '(clos(e|es|ed)|fix(es|ed)?|resolv(e|es|ed)|refs?|part of)[: ]+([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)?#[0-9]+'; then
+            err "The description must reference an issue (for example 'Closes #123')."
+          fi
+          # 2. Label, milestone, assignee
+          [ "$(jq '.labels|length' <<<"$pr")" -gt 0 ] || err "Add at least one label (area/*)."
+          [ "$(jq -r '.milestone.title // empty' <<<"$pr")" != "" ] || err "Set a milestone."
+          [ "$(jq '.assignees|length' <<<"$pr")" -gt 0 ] || err "Assign the pull request."
+          # 3. Reviewer: requested, already reviewed, or defined by CODEOWNERS (a lone maintainer is never auto-requested on their own PR)
+          has_owners=0
+          for f in .github/CODEOWNERS CODEOWNERS docs/CODEOWNERS; do
+            # default branch first, then the pull request's own commit (a PR may be the one adding CODEOWNERS)
+            if gh api "repos/$REPO/contents/$f" >/dev/null 2>&1 || gh api "repos/$REPO/contents/$f?ref=$HEAD_SHA" >/dev/null 2>&1; then has_owners=1; break; fi
+          done
+          if [ "$(jq '(.reviewRequests|length) + (.reviews|length)' <<<"$pr")" -eq 0 ] && [ "$has_owners" -eq 0 ]; then
+            err "Request a reviewer or add a CODEOWNERS file."
+          fi
+          exit "$fail"

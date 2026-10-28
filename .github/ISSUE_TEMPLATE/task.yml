@@ -1,0 +1,31 @@
+name: Task
+description: A defined piece of work (maintainers).
+type: Task
+assignees: [l-nmch]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What is done when this is closed.
+    validations: { required: true }
+  - type: textarea
+    id: plan
+    attributes:
+      label: Plan
+      description: Steps, repositories involved, dependencies.
+    validations: { required: false }
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of done
+      value: |
+        - [ ] Change merged by pull request
+        - [ ] Docs updated
+        - [ ] Verified (how?)
+    validations: { required: true }
+  - type: markdown
+    attributes:
+      value: |
+        Set the **area** label, **priority** (P0-P3), **estimate (h)**, **milestone** and **project** before moving to Ready.
+        See GOVERNANCE.md.
