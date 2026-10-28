@@ -25,6 +25,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       REPO: ${{ github.repository }}
       PR: ${{ github.event.pull_request.number }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
     steps:
       - name: Verify metadata
         run: |
@@ -53,7 +54,8 @@ jobs:
           # 3. Reviewer: requested, already reviewed, or defined by CODEOWNERS (a lone maintainer is never auto-requested on their own PR)
           has_owners=0
           for f in .github/CODEOWNERS CODEOWNERS docs/CODEOWNERS; do
-            if gh api "repos/$REPO/contents/$f" >/dev/null 2>&1; then has_owners=1; break; fi
+            # default branch first, then the pull request's own commit (a PR may be the one adding CODEOWNERS)
+            if gh api "repos/$REPO/contents/$f" >/dev/null 2>&1 || gh api "repos/$REPO/contents/$f?ref=$HEAD_SHA" >/dev/null 2>&1; then has_owners=1; break; fi
           done
           if [ "$(jq '(.reviewRequests|length) + (.reviews|length)' <<<"$pr")" -eq 0 ] && [ "$has_owners" -eq 0 ]; then
             err "Request a reviewer or add a CODEOWNERS file."
