@@ -1,4 +1,6 @@
-# Weekly report of open issues that probably need a decision (see scripts/issue_hygiene.py). Nothing is closed automatically.
+# Weekly report of open issues that probably need a decision (see scripts/issue_hygiene.py). Nothing is closed automatically,
+# and nothing is written to an issue: an issue exists for work that a pull request closes. The report is in the run summary,
+# and the run fails when it lists something, so GitHub notifies the maintainer.
 name: hygiene
 
 on:
@@ -8,7 +10,6 @@ on:
 
 permissions:
   contents: read
-  issues: write
 
 jobs:
   report:
@@ -18,4 +19,7 @@ jobs:
       - name: Report
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 -I scripts/issue_hygiene.py report phorge-fr --post phorge-fr/.github#36
+        run: |
+          set +e
+          python3 -I scripts/issue_hygiene.py report phorge-fr | tee -a "$GITHUB_STEP_SUMMARY"
+          exit "${PIPESTATUS[0]}"

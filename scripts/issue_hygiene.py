@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Report open issues that are probably finished, or whose tracking is inconsistent.
 
-    issue_hygiene.py report ORG [--post REPO#N]    print the report (and post it as a comment)
+    issue_hygiene.py report ORG    print the report; exit status 1 when it lists something (a failed run notifies the maintainer)
     issue_hygiene.py siblings REPO#N [REPO#N ...]  open sub-issues next to the given issues (run before a pull request)
     issue_hygiene.py selftest
 
@@ -103,11 +103,11 @@ def report(org):
             subs[parent] = [(s["repository"]["full_name"], s["number"], s["state"]) for s in gh(f"repos/{parent[0]}/issues/{parent[1]}/sub_issues?per_page=100") or []]
     found = findings(issues, merged, opened, subs, parents)
     if not found:
-        return "No open issue looks finished or inconsistently tracked."
+        return "No open issue looks finished or inconsistently tracked.", 0
     lines = ["Open issues that probably need a decision (each is a question, nothing is closed automatically):", ""]
     for kind, label, why in found:
         lines.append(f"- **{kind}** {label}: {why}")
-    return "\n".join(lines)
+    return "\n".join(lines), len(found)
 
 
 def selftest():
@@ -131,11 +131,9 @@ def main():
         return
     if len(sys.argv) < 3 or sys.argv[1] != "report":
         sys.exit(__doc__)
-    text = report(sys.argv[2])
+    text, count = report(sys.argv[2])
     print(text)
-    if "--post" in sys.argv:
-        repo, num = sys.argv[sys.argv.index("--post") + 1].split("#")
-        subprocess.run(["gh", "api", "-X", "POST", f"repos/{repo}/issues/{num}/comments", "-f", f"body={text}"], check=True, capture_output=True)
+    sys.exit(1 if count else 0)
 
 
 if __name__ == "__main__":
