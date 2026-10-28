@@ -1,0 +1,25 @@
+# Weekly report of open issues that probably need a decision (see scripts/issue_hygiene.py). Nothing is closed automatically,
+# and nothing is written to an issue: an issue exists for work that a pull request closes. The report is in the run summary,
+# and the run fails when it lists something, so GitHub notifies the maintainer.
+name: hygiene
+
+on:
+  schedule:
+    - cron: "30 6 * * 1"      # Monday, after the time report
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 -I scripts/issue_hygiene.py report phorge-fr | tee -a "$GITHUB_STEP_SUMMARY"
+          exit "${PIPESTATUS[0]}"
