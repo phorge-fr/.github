@@ -90,5 +90,5 @@ personal-data handling.
 
 ## Licenses
 
-Each repository states its license in a `LICENSE` file and lists third-party licenses in `THIRD_PARTY_NOTICES.md`. A new dependency
+Every repository of the organization is licensed under the Apache License 2.0 (a `LICENSE` file at its root), and lists third-party licenses in `THIRD_PARTY_NOTICES.md`. A new dependency
 is checked for compatibility before it is added.
