@@ -57,7 +57,7 @@
   {
     "name": "area/docs",
     "color": "0075ca",
-    "description": "Documentation, wiki, READMEs"
+    "description": "Documentation and READMEs"
   },
   {
     "name": "area/ci",
