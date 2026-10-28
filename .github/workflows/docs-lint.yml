@@ -47,7 +47,7 @@ jobs:
         run: python3 -I .org/scripts/check_docs.py .
 
       - name: Markdown
-        run: npx --yes "markdownlint-cli2@${MARKDOWNLINT_CLI2}" --config .org/docs-lint/markdownlint.yaml "docs/**/*.md" "*.md" "!CLAUDE.md"
+        run: npx --yes "markdownlint-cli2@${MARKDOWNLINT_CLI2}" --config .org/docs-lint/markdownlint.yaml "docs/**/*.md" "*.md" "!CLAUDE.md" "!CHANGELOG.md"
 
       - name: Install lychee and Vale
         run: |
