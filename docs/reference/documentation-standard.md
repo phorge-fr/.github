@@ -61,6 +61,12 @@ The title is the single `#` heading, written in sentence case.
 
 Decision records use the MADR header instead: `status`, `date`, `decision-makers` (and optionally `consulted`, `informed`). The filename is `NNNN-short-title.md`. Start from [the template](../../templates/docs/decision.md). A decision is never rewritten: a new record supersedes it and the old one is marked `superseded by ...`.
 
+## Who the documentation is for
+
+`docs/` in a repository is for the people who build and operate Phorge: contributors and operators. It is the single source: GitHub renders it, a pull request reviews it, `docs-lint` checks it. There is no wiki, because a wiki cannot be reviewed or checked, has no folders and would be a second copy.
+
+Documentation for the users of the cloud (getting started, the API guide, the Terraform provider) is a different audience. It lives in its own repository when Phorge is public, with the generated parts (the OpenAPI document, the provider reference) pulled from the code, and is never mixed into a repository's `docs/`.
+
 ## Rules against empty documentation
 
 1. A page has a reader and a purpose, written in its header. No reader, no page.
