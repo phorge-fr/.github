@@ -45,12 +45,12 @@ project's built-in workflows when a pull request is opened or merged and an issu
 ## Pull requests
 
 - Branch off an up-to-date `main`, named `feat/`, `fix/`, `docs/`, `chore/` + short subject. Never commit to `main`.
-- The pull request description is in English, references its issue (`Closes #N`; `Refs #N` for a partial step) and says what was
-  tested. The issue and the pull request carry the same label, milestone and project.
+- The pull request description is in English, closes its issue (`Closes #N`) and says what was
+  tested. A pull request always closes at least one issue, and an issue is closed only by a pull request: never by hand, never by a comment. One subject is one issue. An epic is closed by the pull request that finishes its last sub-issue, which names the epic too. If a change is partial, the leftover is a new issue before the pull request, not a `Refs`. The issue and the pull request carry the same label, milestone and project.
 - It has an assignee and a requested reviewer. Review ownership comes from `CODEOWNERS`. Since a single maintainer cannot
   approve their own pull request, "reviewed" means a reviewer was requested and checks are green; whoever merges states what was
   verified.
-- Required checks must pass. The `pr-governance` check verifies the issue link, label, milestone and assignee.
+- Required checks must pass. The `pr-governance` check verifies the closing keyword, label, milestone and assignee.
 - Exempt from the issue link: Renovate, Dependabot and release-please pull requests.
 - Squash or merge as the repository prefers; keep commit messages in English, imperative, with a conventional prefix
   (`feat(scope):`, `fix(scope):`, `docs:`, `chore:`).

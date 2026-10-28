@@ -15,7 +15,7 @@ By taking part you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
    Issues that are good first steps carry the `good first issue` label.
 2. **Fork or branch** from an up-to-date `main`: `feat/...`, `fix/...`, `docs/...`, `chore/...`. Maintainers never commit to `main` directly either.
 3. **Make a focused change** that matches the surrounding code and docs. Run the repository's checks (see its README or `AGENTS.md`).
-4. **Open a pull request** in English that says `Closes #N`, explains what changed and how you tested it. Fill in the template.
+4. **Open a pull request** in English that says `Closes #N` (a pull request always closes an issue, and an issue is closed only by a pull request), explains what changed and how you tested it. Fill in the template.
 5. **Respond to review.** A maintainer merges once checks are green and the change is understood.
 
 ## Standards

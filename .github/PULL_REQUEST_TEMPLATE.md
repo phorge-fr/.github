@@ -10,7 +10,7 @@ Closes #
 
 ## Checklist
 
-- [ ] Linked to an issue (exempt: Renovate, Dependabot, release-please)
+- [ ] Closes at least one issue (`Closes #N`), and every issue this change finishes is named (exempt: Renovate, Dependabot, release-please)
 - [ ] Label, milestone, assignee and project match the issue
 - [ ] Docs updated (README, `AGENTS.md`, `docs/`) if behavior changed
 - [ ] Network policy and monitoring included for any new workload

@@ -43,9 +43,9 @@ jobs:
           fail=0
           err() { echo "::error::$1"; fail=1; }
 
-          # 1. Issue link: Closes/Fixes/Resolves/Refs/Part of #N or owner/repo#N
-          if ! jq -r .body <<<"$pr" | grep -Eiq '(clos(e|es|ed)|fix(es|ed)?|resolv(e|es|ed)|refs?|part of)[: ]+([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)?#[0-9]+'; then
-            err "The description must reference an issue (for example 'Closes #123')."
+          # 1. A pull request always closes an issue: Closes/Fixes/Resolves #N or owner/repo#N. `Part of` and `Refs` do not count.
+          if ! jq -r .body <<<"$pr" | grep -Eiq '(clos(e|es|ed)|fix(es|ed)?|resolv(e|es|ed))[: ]+([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)?#[0-9]+'; then
+            err "The description must close an issue (for example 'Closes #123'). A pull request always closes one; an issue is closed only by a pull request."
           fi
           # 2. Label, milestone, assignee
           [ "$(jq '.labels|length' <<<"$pr")" -gt 0 ] || err "Add at least one label (area/*)."
