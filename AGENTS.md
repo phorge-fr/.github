@@ -74,7 +74,9 @@ Read [GOVERNANCE.md](GOVERNANCE.md) for the full rules. In short:
 - Do not invent facts about the infrastructure; check the repository or the live state. If something is missing or ambiguous
   (host names, who may do what), ask.
 - Do not add tool or vendor attribution to commits and pull requests unless the maintainers of the repository ask for it.
-- Follow the repository's local commit and review policy (some repositories require maintainer approval before a commit or push).
+- On your own branch you may commit, push and open the pull request without asking. **Merging into `main` waits for the maintainer** (a merge in Hangar is a deployment), and so does anything applied to production by hand-run tools (`tofu apply`, `k0sctl apply`). You may write issues and comments freely, following [GOVERNANCE.md](GOVERNANCE.md); deleting a project or closing an epic is the maintainers' call.
+- Never delete files you did not create in the session; report their path instead.
+- Close issues through `Closes #N` in the pull request, and open a new issue for any leftover *before* the pull request.
 
 ## Contact
 
