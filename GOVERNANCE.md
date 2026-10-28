@@ -101,7 +101,7 @@ A pull request closes only the issues it names. Before opening one, list the ope
 python3 scripts/issue_hygiene.py siblings <owner>/<repo>#<number>
 ```
 
-Write `Closes <owner>/<repo>#N` for every issue it finishes (`Part of` for the rest). The `pr-governance` check prints the same list as a reminder, and the `hygiene` workflow lists, every Monday, open issues that look finished in its run summary and fails when it finds some.
+Write `Closes <owner>/<repo>#N` for every issue it finishes: a pull request always closes at least one issue, and an issue is closed only by a pull request. The `pr-governance` check prints the same list as a reminder, and the `hygiene` workflow lists, every Monday, open issues that look finished in its run summary and fails when it finds some.
 
 ## Documentation
 
