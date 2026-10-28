@@ -68,7 +68,7 @@ GitHub has no native time tracking, so Phorge uses a comment convention.
 - Write it on the issue or the pull request the time was spent on. One command per line; several per comment are fine.
 - Units: `h` and `m`, combined (`1h30`, `1h 30m`, `90m`). Default date is the comment's.
 - The `time-tracking` workflow runs hourly and sums the entries of each item into the `Spent (h)` field of its project items.
-- Every Monday a report (per day, per author, per issue and per pull request) is posted as a comment on the issue `all/time: Time reports` in this repository. `scripts/time_tracking.py report phorge-fr` produces it on demand.
+- Every Monday a report (per day, per author, per issue and per pull request) is in the summary of the `time-tracking` workflow run and kept as the `time-report` artifact for 90 days; nothing is posted on an issue. `scripts/time_tracking.py report phorge-fr` produces it on demand.
 - Edit or delete a wrong comment; totals are recomputed.
 
 ## Milestones and roadmaps
