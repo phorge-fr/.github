@@ -1,7 +1,7 @@
 ---
 type: reference
 audience: anyone who writes or reviews documentation in a phorge-fr repository
-verified: 2026-10-28
+verified: 2026-10-29
 ---
 
 # Documentation standard
@@ -63,9 +63,16 @@ Decision records use the MADR header instead: `status`, `date`, `decision-makers
 
 ## Who the documentation is for
 
-`docs/` in a repository is for the people who build and operate Phorge: contributors and operators. It is the single source: GitHub renders it, a pull request reviews it, `docs-lint` checks it. There is no wiki, because a wiki cannot be reviewed or checked, has no folders and would be a second copy.
+Phorge has two kinds of documentation. They are told apart by their reader, not by their visibility: every repository is public.
 
-Documentation for the users of the cloud (getting started, the API guide, the Terraform provider) is a different audience. It lives in its own repository when Phorge is public, with the generated parts (the OpenAPI document, the provider reference) pulled from the code, and is never mixed into a repository's `docs/`.
+| Kind | Reader | Covers | Lives in |
+| --- | --- | --- | --- |
+| Operator documentation | Operators and contributors | Everything that makes Phorge run: infrastructure, platform, network, systems, and the contributor rules | `docs/` of each repository |
+| User documentation | People who consume Phorge | Getting started, the API guide, the Terraform provider, worked examples | Its own repository, published as one site when Phorge is public ([#31](https://github.com/phorge-fr/.github/issues/31)) |
+
+This standard governs operator documentation. `docs/` in a repository is its single source: GitHub renders it, a pull request reviews it, `docs-lint` checks it. There is no wiki, because a wiki cannot be reviewed or checked, has no folders and would be a second copy.
+
+User documentation pulls its generated parts (the OpenAPI document, the provider reference) from the code, and is never mixed into a repository's `docs/`. A page's `audience` says which of the two it is for.
 
 ## Rules against empty documentation
 
