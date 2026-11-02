@@ -4,6 +4,8 @@ exclude = [
   '^https?://127\.0\.0\.1',
   '^https?://10\.',
   '^https?://192\.168\.',
+  # Temporary: the showcase site does not exist yet. Remove with phorge-fr/.github#11.
+  '^https://phorge\.fr/?$',
 ]
 exclude_path = ["templates"]
 accept = ["200..=299", "403", "429"]
