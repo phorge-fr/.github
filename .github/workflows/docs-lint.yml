@@ -3,11 +3,17 @@
 #
 #   on:
 #     pull_request:
-#       paths: ["docs/**", "*.md"]
 #   permissions: { contents: read }
 #   jobs:
 #     docs:
 #       uses: phorge-fr/.github/.github/workflows/docs-lint.yml@main
+#
+# Do not put a `paths:` filter on the trigger: a required check that never reports blocks the merge. The workflow
+# decides itself. On a pull request that changes no documentation it reports success at once, without running the tools.
+# Documentation is any Markdown file, anything under `docs/`, and the configuration of the check (`docs-lint/`,
+# `templates/docs/`, `scripts/check_docs.py`, the `docs*.yml` workflows), except the root `CHANGELOG.md` and `CLAUDE.md`,
+# which the Markdown check skips. Every other event (push, schedule, manual run)
+# runs the full check.
 #
 # `external-links: true` also checks the links to the web (use it on a schedule, not on pull requests).
 name: docs-lint
@@ -36,20 +42,46 @@ jobs:
     name: docs-lint
     runs-on: ubuntu-latest
     steps:
+      # Two commits are enough: on a pull request the checkout is the merge commit, whose first parent is the base.
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 2
+
+      - name: Does this change touch documentation?
+        id: scope
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          full() { echo "docs=true" >> "$GITHUB_OUTPUT"; echo "$1: running the full check."; exit 0; }
+          [ "$EVENT" = "pull_request" ] || full "Not a pull request"
+          git rev-parse --verify --quiet HEAD^2 > /dev/null || full "No merge commit to compare"
+          # CHANGELOG.md (release-please) and CLAUDE.md are excluded from the Markdown check below, so they do not count.
+          changed="$(git diff -z --name-only --no-renames HEAD^1 HEAD | tr '\0' '\n' | grep -Ev '^(CHANGELOG|CLAUDE)\.md$' || true)"
+          pattern='(^|/)[^/]+\.md$|^docs/|^docs-lint/|^templates/docs/|^scripts/check_docs\.py$|^\.github/workflows/docs[^/]*\.yml$'
+          if printf '%s\n' "$changed" | grep -Eq "$pattern"; then
+            full "Documentation changed"
+          fi
+          echo "docs=false" >> "$GITHUB_OUTPUT"
+          echo "No documentation changed, nothing to check."
+
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        if: steps.scope.outputs.docs == 'true'
         with:
           repository: phorge-fr/.github
           ref: ${{ inputs.org-ref }}
           path: .org
 
       - name: Header and layout
+        if: steps.scope.outputs.docs == 'true'
         run: python3 -I .org/scripts/check_docs.py .
 
       - name: Markdown
+        if: steps.scope.outputs.docs == 'true'
         run: npx --yes "markdownlint-cli2@${MARKDOWNLINT_CLI2}" --config .org/docs-lint/markdownlint.yaml "docs/**/*.md" "*.md" "!CLAUDE.md" "!CHANGELOG.md"
 
       - name: Install lychee and Vale
+        if: steps.scope.outputs.docs == 'true'
         run: |
           set -euo pipefail
           cd "$RUNNER_TEMP"
@@ -67,6 +99,7 @@ jobs:
           echo "$RUNNER_TEMP/lychee-x86_64-unknown-linux-gnu" >> "$GITHUB_PATH"
 
       - name: Links
+        if: steps.scope.outputs.docs == 'true'
         run: |
           flags="--include-fragments --no-progress"
           if [ "${{ inputs.external-links }}" != "true" ]; then flags="$flags --offline"; fi
@@ -74,6 +107,7 @@ jobs:
           lychee $flags --config .org/docs-lint/lychee.toml docs README.md
 
       - name: Prose
+        if: steps.scope.outputs.docs == 'true'
         run: |
           vale --config .org/docs-lint/vale.ini sync
           vale --config .org/docs-lint/vale.ini docs

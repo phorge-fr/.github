@@ -99,4 +99,6 @@ A pull request that touches documentation must pass the shared `docs-lint` workf
 | Links | lychee | A broken internal link or anchor. External links are checked on a schedule |
 | Prose | Vale with the Google style | Errors. Warnings are shown but do not block |
 
+The workflow decides from the files of the pull request. Any Markdown file, anything under `docs/` and the configuration of the checks count as documentation. A pull request that changes none of them (a dependency bump, for example) passes `docs-lint` at once without running the tools, so the required check always reports. Pushes to `main`, the weekly run and manual runs always check everything.
+
 Run them locally with [Write and check a page](../how-to/write-and-check-a-page.md).
