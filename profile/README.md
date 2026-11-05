@@ -1,10 +1,10 @@
-# Welcome to φorge
+# Welcome to Phorge
 
 Transparent, Open-Source Cloud Infrastructure
 
 ![Phorge logo](https://avatars.githubusercontent.com/u/187407936?s=200&v=4)
 
-φorge (or phorge) is an open-source cloud provider initiative led by @l-nmch.
+Phorge is an open-source cloud provider initiative led by @l-nmch.
 
 We aim to build a complete, transparent, and self-hostable cloud platform — from the network layer to the orchestration and user interface, powered by modern open technologies like Kubernetes and Incus.
 
@@ -50,6 +50,7 @@ Each issue has a type, a priority, an estimate and the time spent. Read [GOVERNA
 - [Contributing guide](https://github.com/phorge-fr/.github/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/phorge-fr/.github/blob/main/CODE_OF_CONDUCT.md)
 - [Security policy](https://github.com/phorge-fr/.github/blob/main/SECURITY.md): report vulnerabilities privately
 - New here, or an AI agent? Start with [AGENTS.md](https://github.com/phorge-fr/.github/blob/main/AGENTS.md)
+- Writing text or building an interface? The [brand guide](https://github.com/phorge-fr/.github/blob/main/docs/reference/brand-guide.md) has the name, logo, colors and typeface
 
 ## Contact
 

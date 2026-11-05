@@ -1,0 +1,44 @@
+/*
+ * Phorge brand tokens. Values and contrast ratios: docs/reference/brand-guide.md.
+ * Light by default; dark follows the system, and data-theme="light" or "dark" on the root element forces one.
+ */
+:root {
+    --phorge-bg: #ffffff;
+    --phorge-surface: #f6f7fa;
+    --phorge-highlight: #ecf5fd;
+    --phorge-text: #181c21;
+    --phorge-text-muted: #30363b;
+    --phorge-primary: #0475b5;
+    --phorge-on-primary: #ffffff;
+    --phorge-accent: #0593e4;
+    --phorge-wordmark-gray: #767676;
+    --phorge-logo-blue: #39b5fb;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --phorge-bg: #1b1f23;
+        --phorge-surface: #14171a;
+        --phorge-highlight: #1e2226;
+        --phorge-text: #d0d5da;
+        --phorge-text-muted: #bcc3cb;
+        --phorge-primary: #39b5fb;
+        --phorge-on-primary: #01050a;
+        --phorge-accent: #39b5fb;
+        --phorge-wordmark-gray: #a6a6a6;
+        color-scheme: dark;
+    }
+}
+
+:root[data-theme="dark"] {
+    --phorge-bg: #1b1f23;
+    --phorge-surface: #14171a;
+    --phorge-highlight: #1e2226;
+    --phorge-text: #d0d5da;
+    --phorge-text-muted: #bcc3cb;
+    --phorge-primary: #39b5fb;
+    --phorge-on-primary: #01050a;
+    --phorge-accent: #39b5fb;
+    --phorge-wordmark-gray: #a6a6a6;
+    color-scheme: dark;
+}
