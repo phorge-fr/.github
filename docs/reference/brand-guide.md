@@ -29,7 +29,7 @@ Rules:
 - Do not set the name in another typeface to make a logo.
 - Keep a clear space around the logo at least equal to the height of the letter o.
 
-The letters of the wordmark are outlines of Source Sans 3 Regular, so the files need no font. The φ is one path, drawn with the proportions of the earlier logo: a vertical stem and a loop that is open at the upper left.
+The letters of the wordmark are outlines of Source Sans 3 Regular, so the files need no font. The φ is the drawing of the earlier logo, vectorized again as one path with its edges smoothed.
 
 ## Colors
 
