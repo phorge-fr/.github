@@ -1,31 +1,82 @@
 /*
- * Phorge brand tokens. Values and contrast ratios: docs/reference/brand-guide.md.
+ * Phorge tokens. Values and contrast ratios: docs/reference/brand-guide.md.
+ * The base is the brand (background, surface, text, primary, accent, logo). The rest was added for the console: a finer neutral
+ * scale, three levels of text, the border of a control, and the status colors (success, warning, danger, in progress, idle), each
+ * as a text color, a tint and a dot. Contrast is WCAG AA: text 4.5:1 on the background and on its tint, controls and dots 3:1.
  * Light by default; dark follows the system, and data-theme="light" or "dark" on the root element forces one.
  */
 :root {
     --phorge-bg: #ffffff;
     --phorge-surface: #f6f7fa;
+    --phorge-surface-2: #eceff3;
     --phorge-highlight: #ecf5fd;
     --phorge-text: #181c21;
     --phorge-text-muted: #30363b;
+    --phorge-text-2: #444d58;
+    --phorge-text-3: #5a6470;
+    --phorge-line: #e3e6eb;
+    --phorge-control: #7a838e;
     --phorge-primary: #0475b5;
+    --phorge-primary-hover: #035f94;
     --phorge-on-primary: #ffffff;
     --phorge-accent: #0593e4;
     --phorge-wordmark-gray: #767676;
     --phorge-logo-blue: #39b5fb;
+
+    --phorge-success-fg: #14673a;
+    --phorge-success-bg: #e6f5ec;
+    --phorge-success-dot: #1f9d57;
+    --phorge-warning-fg: #7d4a00;
+    --phorge-warning-bg: #fdf1dc;
+    --phorge-warning-dot: #b87000;
+    --phorge-danger-fg: #a82217;
+    --phorge-danger-bg: #fdebe9;
+    --phorge-danger-dot: #d03a2e;
+    --phorge-progress-fg: #04639b;
+    --phorge-progress-bg: #e5f1fb;
+    --phorge-progress-dot: #0584cd;
+    --phorge-idle-fg: #444d58;
+    --phorge-idle-bg: #eceff3;
+    --phorge-idle-dot: #7a838e;
+
+    --phorge-shadow-pop: 0 8px 24px rgb(24 28 33 / 0.12), 0 1px 3px rgb(24 28 33 / 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
         --phorge-bg: #1b1f23;
         --phorge-surface: #14171a;
+        --phorge-surface-2: #252b31;
         --phorge-highlight: #1e2226;
         --phorge-text: #d0d5da;
         --phorge-text-muted: #bcc3cb;
+        --phorge-text-2: #b0b8c1;
+        --phorge-text-3: #98a1ab;
+        --phorge-line: #2c333a;
+        --phorge-control: #6d7782;
         --phorge-primary: #39b5fb;
+        --phorge-primary-hover: #6cc7fc;
         --phorge-on-primary: #01050a;
         --phorge-accent: #39b5fb;
         --phorge-wordmark-gray: #a6a6a6;
+
+        --phorge-success-fg: #6fd79a;
+        --phorge-success-bg: #133323;
+        --phorge-success-dot: #3fb878;
+        --phorge-warning-fg: #f2bc57;
+        --phorge-warning-bg: #3a2b0c;
+        --phorge-warning-dot: #e2a02b;
+        --phorge-danger-fg: #ff9a90;
+        --phorge-danger-bg: #3f1815;
+        --phorge-danger-dot: #f0645a;
+        --phorge-progress-fg: #6cc7fc;
+        --phorge-progress-bg: #0f2d42;
+        --phorge-progress-dot: #39b5fb;
+        --phorge-idle-fg: #b0b8c1;
+        --phorge-idle-bg: #252b31;
+        --phorge-idle-dot: #8a949f;
+
+        --phorge-shadow-pop: 0 8px 24px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
         color-scheme: dark;
     }
 }
@@ -33,12 +84,36 @@
 :root[data-theme="dark"] {
     --phorge-bg: #1b1f23;
     --phorge-surface: #14171a;
+    --phorge-surface-2: #252b31;
     --phorge-highlight: #1e2226;
     --phorge-text: #d0d5da;
     --phorge-text-muted: #bcc3cb;
+    --phorge-text-2: #b0b8c1;
+    --phorge-text-3: #98a1ab;
+    --phorge-line: #2c333a;
+    --phorge-control: #6d7782;
     --phorge-primary: #39b5fb;
+    --phorge-primary-hover: #6cc7fc;
     --phorge-on-primary: #01050a;
     --phorge-accent: #39b5fb;
     --phorge-wordmark-gray: #a6a6a6;
+
+    --phorge-success-fg: #6fd79a;
+    --phorge-success-bg: #133323;
+    --phorge-success-dot: #3fb878;
+    --phorge-warning-fg: #f2bc57;
+    --phorge-warning-bg: #3a2b0c;
+    --phorge-warning-dot: #e2a02b;
+    --phorge-danger-fg: #ff9a90;
+    --phorge-danger-bg: #3f1815;
+    --phorge-danger-dot: #f0645a;
+    --phorge-progress-fg: #6cc7fc;
+    --phorge-progress-bg: #0f2d42;
+    --phorge-progress-dot: #39b5fb;
+    --phorge-idle-fg: #b0b8c1;
+    --phorge-idle-bg: #252b31;
+    --phorge-idle-dot: #8a949f;
+
+    --phorge-shadow-pop: 0 8px 24px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
     color-scheme: dark;
 }

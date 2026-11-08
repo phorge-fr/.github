@@ -1,7 +1,7 @@
 ---
 type: reference
 audience: contributor who writes text, builds an interface or makes a visual for Phorge
-verified: 2026-11-05
+verified: 2026-11-08
 ---
 
 # Brand guide
@@ -43,10 +43,16 @@ The logo blue, `#39b5fb`, is 2.3:1 on white. It is used as a color for text, lin
 | --- | --- | --- | --- |
 | `--phorge-bg` | `#ffffff` | Page background | |
 | `--phorge-surface` | `#f6f7fa` | Navigation, panels | |
+| `--phorge-surface-2` | `#eceff3` | Hover and selected rows, the current item of the navigation | |
 | `--phorge-highlight` | `#ecf5fd` | Selected rows | |
 | `--phorge-text` | `#181c21` | Body text | 17.1:1 on bg, 16.0:1 on surface |
 | `--phorge-text-muted` | `#30363b` | Secondary text | 12.2:1 on bg, 11.1:1 on highlight |
+| `--phorge-text-2` | `#444d58` | Secondary text in the console | 8.6:1 on bg, 8.0:1 on surface, 7.4:1 on surface-2 |
+| `--phorge-text-3` | `#5a6470` | Help text, placeholders, units | 6.0:1 on bg, 5.6:1 on surface, 5.2:1 on surface-2 |
+| `--phorge-line` | `#e3e6eb` | Hairlines between rows and around panels | Decoration, no minimum |
+| `--phorge-control` | `#7a838e` | The border of a field or a button | 3.8:1 on bg, 3.6:1 on surface |
 | `--phorge-primary` | `#0475b5` | Links, button fill | 5.0:1 on bg, 4.7:1 on surface, 4.5:1 on highlight |
+| `--phorge-primary-hover` | `#035f94` | The main button under the pointer | 6.8:1 on bg, 6.8:1 with on-primary |
 | `--phorge-on-primary` | `#ffffff` | Text on a primary fill | 5.0:1 on primary |
 | `--phorge-accent` | `#0593e4` | Borders, icons, focus rings | 3.3:1 on bg, 3.1:1 on surface, 3.0:1 on highlight |
 | `--phorge-wordmark-gray` | `#767676` | The letters "orge" | 4.5:1 on bg |
@@ -57,15 +63,47 @@ The logo blue, `#39b5fb`, is 2.3:1 on white. It is used as a color for text, lin
 | --- | --- | --- | --- |
 | `--phorge-bg` | `#1b1f23` | Page background | |
 | `--phorge-surface` | `#14171a` | Navigation, panels | |
+| `--phorge-surface-2` | `#252b31` | Hover and selected rows, the current item of the navigation | |
 | `--phorge-highlight` | `#1e2226` | Selected rows | |
 | `--phorge-text` | `#d0d5da` | Body text | 11.2:1 on bg, 12.2:1 on surface |
 | `--phorge-text-muted` | `#bcc3cb` | Secondary text | 9.3:1 on bg, 9.0:1 on highlight |
+| `--phorge-text-2` | `#b0b8c1` | Secondary text in the console | 8.3:1 on bg, 9.0:1 on surface, 7.1:1 on surface-2 |
+| `--phorge-text-3` | `#98a1ab` | Help text, placeholders, units | 6.3:1 on bg, 6.9:1 on surface, 5.5:1 on surface-2 |
+| `--phorge-line` | `#2c333a` | Hairlines between rows and around panels | Decoration, no minimum |
+| `--phorge-control` | `#6d7782` | The border of a field or a button | 3.6:1 on bg, 4.0:1 on surface |
 | `--phorge-primary` | `#39b5fb` | Links, button fill | 7.2:1 on bg, 7.9:1 on surface, 7.0:1 on highlight |
+| `--phorge-primary-hover` | `#6cc7fc` | The main button under the pointer | 8.9:1 on bg, 10.9:1 with on-primary |
 | `--phorge-on-primary` | `#01050a` | Text on a primary fill | 8.9:1 on primary |
 | `--phorge-accent` | `#39b5fb` | Borders, icons, focus rings | 7.2:1 on bg |
 | `--phorge-wordmark-gray` | `#a6a6a6` | The letters "orge" | 6.8:1 on bg |
 
 Ratios are the WCAG 2 contrast ratio, computed from the hex values and rounded to one decimal. Body text needs 4.5:1 and large text, icons and borders need 3:1. The text of a logo has no minimum, and the wordmark gray still meets 4.5:1 on white.
+
+### Status colors
+
+A state is shown with a text color, a tint behind it and a dot (or a border), and is always written and drawn with an icon: a color never carries the meaning alone. The tokens are in [brand/tokens.css](../../brand/tokens.css). A color means one thing everywhere: success (`Ready`, running), warning, danger (`Failed`), in progress (`Provisioning`, starting, stopping) and idle (stopped, being deleted).
+
+Light theme:
+
+| Status | Text | Tint | Dot | Text on tint | Text on bg | Dot on bg |
+| --- | --- | --- | --- | --- | --- | --- |
+| Success | `--phorge-success-fg` `#14673a` | `--phorge-success-bg` `#e6f5ec` | `--phorge-success-dot` `#1f9d57` | 6.1:1 | 6.9:1 | 3.5:1 |
+| Warning | `--phorge-warning-fg` `#7d4a00` | `--phorge-warning-bg` `#fdf1dc` | `--phorge-warning-dot` `#b87000` | 6.6:1 | 7.4:1 | 3.9:1 |
+| Danger | `--phorge-danger-fg` `#a82217` | `--phorge-danger-bg` `#fdebe9` | `--phorge-danger-dot` `#d03a2e` | 6.3:1 | 7.2:1 | 4.9:1 |
+| In progress | `--phorge-progress-fg` `#04639b` | `--phorge-progress-bg` `#e5f1fb` | `--phorge-progress-dot` `#0584cd` | 5.6:1 | 6.4:1 | 4.0:1 |
+| Idle | `--phorge-idle-fg` `#444d58` | `--phorge-idle-bg` `#eceff3` | `--phorge-idle-dot` `#7a838e` | 7.4:1 | 8.6:1 | 3.8:1 |
+
+Dark theme:
+
+| Status | Text | Tint | Dot | Text on tint | Text on bg | Dot on bg |
+| --- | --- | --- | --- | --- | --- | --- |
+| Success | `--phorge-success-fg` `#6fd79a` | `--phorge-success-bg` `#133323` | `--phorge-success-dot` `#3fb878` | 7.8:1 | 9.4:1 | 6.6:1 |
+| Warning | `--phorge-warning-fg` `#f2bc57` | `--phorge-warning-bg` `#3a2b0c` | `--phorge-warning-dot` `#e2a02b` | 7.9:1 | 9.6:1 | 7.3:1 |
+| Danger | `--phorge-danger-fg` `#ff9a90` | `--phorge-danger-bg` `#3f1815` | `--phorge-danger-dot` `#f0645a` | 7.6:1 | 8.1:1 | 5.3:1 |
+| In progress | `--phorge-progress-fg` `#6cc7fc` | `--phorge-progress-bg` `#0f2d42` | `--phorge-progress-dot` `#39b5fb` | 7.6:1 | 8.9:1 | 7.2:1 |
+| Idle | `--phorge-idle-fg` `#b0b8c1` | `--phorge-idle-bg` `#252b31` | `--phorge-idle-dot` `#8a949f` | 7.1:1 | 8.3:1 | 5.4:1 |
+
+The brand itself has no status colors: they exist for interfaces that show the state of a resource, like the console. The accent colors stay for actions, the current selection and focus.
 
 ## Typography
 
